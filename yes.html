@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Yes 💕</title>
+<style>
+body {
+    margin:0;
+    font-family: Arial;
+    background: linear-gradient(135deg,#FFC0CB,#FFB6C1);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+    overflow:hidden;
+    color:#800080;
+    text-align:center;
+}
+h1 {
+    font-size:32px;
+    margin-bottom: 20px;
+}
+.text-container {
+    position: relative;
+    z-index: 10; /* ensure text on top */
+}
+.confetti, .heart {
+    position:absolute;
+    pointer-events:none;
+    z-index: 1; /* background */
+    opacity: 0.8; /* slightly transparent */
+}
+</style>
+</head>
+<body>
+
+<div class="text-container">
+    <h1>Yay!! You said YES 💖</h1>
+</div>
+
+<script>
+// floating hearts background
+function createHeart(){
+    const heart = document.createElement("div");
+    heart.classList.add("heart");
+    heart.innerText="❤";
+    heart.style.fontSize=(Math.random()*30+15)+"px";
+    heart.style.color=['#FF69B4','#FF1493','#FFC0CB','#FFB6C1'][Math.floor(Math.random()*4)];
+    heart.style.left=Math.random()*window.innerWidth+"px";
+    heart.style.top=window.innerHeight+"px";
+    heart.style.transition=`transform ${Math.random()*4+3}s linear`;
+    document.body.appendChild(heart);
+    setTimeout(()=>{
+        heart.style.transform=`translateY(-${window.innerHeight+50}px)`;
+    },10);
+    setTimeout(()=>heart.remove(),7000);
+}
+setInterval(createHeart,200);
+
+// continuous confetti
+function createConfetti(){
+    const conf = document.createElement("div");
+    conf.classList.add("confetti");
+
+    const size = Math.random()*12+6;
+    conf.style.width = size+"px";
+    conf.style.height = size+"px";
+    conf.style.backgroundColor = ['#FFC0CB','#FF69B4','#FF1493','#E6E6FA','#FFFFFF'][Math.floor(Math.random()*5)];
+
+    conf.style.left = Math.random()*window.innerWidth+"px";
+    conf.style.top = -20 + "px";
+
+    document.body.appendChild(conf);
+
+    const fallDuration = Math.random()*3 + 2;
+    const driftX = (Math.random()-0.5)*200;
+
+    conf.style.transition = `transform ${fallDuration}s linear, opacity ${fallDuration}s linear`;
+
+    setTimeout(()=>{
+        conf.style.transform = `translate(${driftX}px, ${window.innerHeight + 50}px) rotate(${Math.random()*360}deg)`;
+        conf.style.opacity = 0;
+    },10);
+
+    setTimeout(()=>conf.remove(), fallDuration*1000+100);
+}
+setInterval(createConfetti,100);
+</script>
+
+</body>
+</html>
